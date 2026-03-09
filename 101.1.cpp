@@ -1,9 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 void solve(){
+    string t="<censored>";
     int n;
     cin>>n;
-    vector<string> s(100);
+    vector<string> s(n);
     for(int i=0;i<n;i++){
         cin>>s[i];
     }
@@ -13,23 +14,13 @@ void solve(){
     getline(cin,dummy);
     string text="";
     getline(cin,text);
-    string result;
     int count=0;
-    for(int i=0;i<text.size();){
-        bool match=false;  
-        for(int j=0;j<n;j++){
-           int  len=s[j].size();
-           if(i+len<=text.size() && text.substr(i,len)==s[j]){
+    for(int i=0;i<n;i++){
+        size_t index=0;
+        while((index=text.find(s[i],index))!=string::npos){
             count++;
-            i+=len;
-            match=true;
-            result+="<censored>";
-            break;
-           }
-        }
-        if(!match){
-            result+=text[i];
-            i++;
+            text.replace(index,s[i].length(),t);
+            index+=t.length();
         }
     }
     if(count>=k){
@@ -37,7 +28,7 @@ void solve(){
         cout<<"He Xie Ni Quan Jia!";
     }
     else{
-        cout<<result;
+        cout<<text<<endl;
     }
 }
 
